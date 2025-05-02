@@ -3,14 +3,14 @@ import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/widgets/meal_item.dart';
 
 class Meals extends StatelessWidget {
-  final String title;
+  final String? title;
   final List<Meal> meals;
 
-  const Meals({required this.meals, required this.title, super.key});
+  const Meals({required this.meals, this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
-    Widget body_part = ListView.builder(
+    Widget bodyPart = ListView.builder(
       itemCount: meals.length,
       itemBuilder: (context, index) {
         return MealItem(meal: meals[index]);
@@ -18,7 +18,7 @@ class Meals extends StatelessWidget {
     );
 
     if (meals.isEmpty) {
-      body_part = Center(
+      bodyPart = Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -39,7 +39,10 @@ class Meals extends StatelessWidget {
         ),
       );
     }
+    if (title == null) {
+      return bodyPart;
+    }
 
-    return Scaffold(appBar: AppBar(title: Text(title)), body: body_part);
+    return Scaffold(appBar: AppBar(title: Text(title!)), body: bodyPart);
   }
 }
