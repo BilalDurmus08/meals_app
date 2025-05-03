@@ -3,13 +3,28 @@ import 'package:meals_app/models/meal.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealsDetailScreen extends StatelessWidget {
-  const MealsDetailScreen({super.key, required this.meal});
+  const MealsDetailScreen({
+    super.key,
+    required this.meal,
+    required this.favoriteToggle,
+  });
   final Meal meal;
+  final void Function(Meal meal) favoriteToggle;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(meal.title)),
+      appBar: AppBar(
+        title: Text(meal.title),
+        actions: [
+          IconButton(
+            onPressed: () {
+              favoriteToggle(meal);
+            },
+            icon: Icon(Icons.star),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -53,6 +68,7 @@ class MealsDetailScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
 
