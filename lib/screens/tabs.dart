@@ -4,6 +4,8 @@ import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'dart:developer';
 
+import 'package:meals_app/widgets/drawer_main.dart';
+
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
 
@@ -20,9 +22,15 @@ class _TabsScreenState extends State<TabsScreen> {
     log('Toggling favorite for meal: ${meal.title}');
     bool isInclude = favMeal.contains(meal);
     if (isInclude) {
-      favMeal.remove(meal);
+      setState(() {
+        favMeal.remove(meal);
+      });
+      _showInfoMessage('No longer in your favorite');
     } else {
-      favMeal.add(meal);
+      setState(() {
+        favMeal.add(meal);
+      });
+      _showInfoMessage('Now in your favorites');
     }
   }
 
@@ -32,6 +40,13 @@ class _TabsScreenState extends State<TabsScreen> {
     setState(() {
       _selectedPage = index;
     });
+  }
+
+  void _showInfoMessage(String message) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -46,6 +61,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
     return Scaffold(
       appBar: AppBar(title: Text(activePageTitle)),
+      drawer: DrawerMain(),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPage,
