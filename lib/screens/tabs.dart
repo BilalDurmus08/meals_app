@@ -18,6 +18,13 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   final List<Meal> favMeal = [];
 
+  void _onSelectedScreen(String labelScreen) {
+    if (labelScreen == 'filters') {
+    } else if (labelScreen == 'meals') {
+      Navigator.pop(context);
+    }
+  }
+
   void _favoriteToggle(Meal meal) {
     log('Toggling favorite for meal: ${meal.title}');
     bool isInclude = favMeal.contains(meal);
@@ -61,7 +68,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
     return Scaffold(
       appBar: AppBar(title: Text(activePageTitle)),
-      drawer: DrawerMain(),
+      drawer: DrawerMain(onSelectedScreen: _onSelectedScreen),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPage,

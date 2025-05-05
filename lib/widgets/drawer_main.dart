@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/screens/categories.dart';
 
 class DrawerMain extends StatelessWidget {
-  const DrawerMain({super.key});
+  const DrawerMain({super.key, required this.onSelectedScreen});
+  final void Function(String labelScreen) onSelectedScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,9 @@ class DrawerMain extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              onSelectedScreen('meals');
+            },
           ),
           ListTile(
             leading: Icon(Icons.settings, size: 35),
@@ -55,7 +59,9 @@ class DrawerMain extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              onSelectedScreen('filters');
+            },
           ),
         ],
       ),
