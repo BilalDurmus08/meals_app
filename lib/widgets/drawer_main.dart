@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/screens/categories.dart';
 
 class DrawerMain extends StatelessWidget {
   const DrawerMain({super.key, required this.onSelectedScreen});
